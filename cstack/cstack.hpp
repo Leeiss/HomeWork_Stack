@@ -65,12 +65,16 @@ struct Node
 {
     uint32_t info;
     Node* next = nullptr;
+    
+    bool operator<(const Node& other) const {
+        return info < other.info;
+    }
 };
+
 
 class CStack {
 private:
     Node* ptop = nullptr;
-    bool cleared = false;
 
 public:
     CStack();
@@ -83,5 +87,8 @@ public:
     CStack& operator=(const CStack& other);
     uint32_t operator[](size_t index) const;
     bool operator<(const CStack& other) const;
-    void clear(); 
+
+private:
+    void clear();
 };
+

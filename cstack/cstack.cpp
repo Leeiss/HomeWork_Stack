@@ -1,21 +1,20 @@
 #include "cstack.hpp"
 #include <stdexcept>
 
+
 CStack::CStack() {
     ptop = nullptr;
 }
 
 CStack::~CStack() {
-    if (!cleared) {  
-        clear();
-    }
+    clear();
 }
 
 void CStack::pop() {
     if (!empty()) {
         Node* temp = ptop;
         ptop = ptop->next;
-        delete temp;
+        
     }
 }
 
@@ -23,7 +22,12 @@ void CStack::clear() {
     while (!empty()) {
         pop();
     }
-    cleared = true;  
+    Node* current = ptop;
+    while (current != nullptr) {
+        Node* temp = current;
+        current = current->next;
+        delete temp;
+    }
 }
 
 void CStack::push(uint32_t val) {
@@ -56,22 +60,29 @@ CStack& CStack::operator=(const CStack& other) {
     if (this == &other) {
         return *this;
     }
-
-    CStack tempStack;
-    Node* current = other.ptop;
-    while (current != nullptr) {
-        tempStack.push(current->info);
-        current = current->next;
-    }
     clear();
-    current = tempStack.ptop;
+
+    Node* current = other.ptop;
+    Node* previous = nullptr;
+
     while (current != nullptr) {
-        push(current->info);
+        Node* newNode = new Node;
+        newNode->info = current->info;
+        newNode->next = nullptr;
+
+        if (previous != nullptr) {
+            previous->next = newNode;
+        } else {
+            ptop = newNode;
+        }
+
+        previous = newNode;
         current = current->next;
     }
 
     return *this;
 }
+
 
 
 uint32_t CStack::operator[](size_t index) const {

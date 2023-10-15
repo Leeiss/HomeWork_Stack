@@ -3,6 +3,8 @@
 #include <sstream>
 #include <string>
 #include <map>
+#include <stack>
+#include <random>
 
 /*
 Команды в терминале:
@@ -10,7 +12,6 @@ exit - вывод содержимого всех созданных stack и no
 Cstack название_стека - создать стек
 название_стека push добавлемый_элемент - добавить элемент в стек 
 название_стека *= число - умножить все элементы стека на число
-название_стека clear - очистить стек
 название_стека pop - удалить верхний элемент стека
 название_стека top - вывести верхний элемент стека
 название_стека empty? - проверить, пуст ли стек 
@@ -93,9 +94,7 @@ void processStackCommand(const std::string& cmd, std::map<std::string, CStack>& 
         iss >> multiplier;
         stacks[cmd] *= multiplier;
 
-    } else if (operation == "clear") {
-        stacks[cmd].clear();
-       
+    
     } else {
         std::cout << "Неизвестная команда для стека " << cmd << "." << std::endl;
     }
@@ -131,6 +130,7 @@ void processNodeCommand(const std::string& cmd, std::map<std::string, Node>& nod
     }
 }
 
+/*
 int main() {
     std::map<std::string, CStack> stacks;
     std::map<std::string, Node> nodes;
@@ -178,4 +178,8 @@ int main() {
     }
 
     return 0;
+}
+*/
+int main() {
+    
 }
